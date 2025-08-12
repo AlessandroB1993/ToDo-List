@@ -3,16 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage Project</title>
+    <title>To Do List</title>
   </head>
   <body>
-    <header>
-      <nav id="navbar">
-        <button data-page="home">Home</button>
-        <button data-page="menu">Menu</button>
-        <button data-page="contacts">Contacts</button>
-      </nav>
-    </header>
-    <div id="content"></div>
+    <main id="main">
+      <div class="sidebar">
+        <ul class="sidebar__list">
+          <li>project1</li>
+          <li>project3</li>
+          <li>project2</li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <form id="input-form">
+          <div class="input-container">
+            <label for="title"></label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="title-input"
+              placeholder="Insert your task"
+              required
+            />
+
+            <label for="description"></label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              class="description-input"
+              placeholder="Description..."
+            />
+
+            <label for="duedate">Due date:</label>
+            <input
+              type="date"
+              name="duedate"
+              id="duedate"
+              class="duedate-input"
+            />
+
+            <label for="priority">Priority:</label>
+            <input
+              type="checkbox"
+              name="priority"
+              id="priority"
+              class="priority-input"
+            />
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+        <div class="list-container">
+          <ul class="list"></ul>
+        </div>
+
+        <button id="add-project">Add new project</button>
+        <form class="project-form hidden">
+          <label for="title">Project title:</label>
+          <input
+            type="text"
+            name="title"
+            placeholder="Project title"
+            id="title"
+          />
+          <button type="submit">Create Project</button>
+        </form>
+      </div>
+    </main>
   </body>
 </html>
