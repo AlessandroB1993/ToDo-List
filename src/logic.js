@@ -24,7 +24,30 @@ export class Item {
 }
 
 export class Project {
-  static itemList = [];
+  static itemList = [
+    {
+      complete: false,
+      description: "retert skdufh sudfhudfhds hfds fhsdufh sud fudhfs d",
+      duedate: "2025-08-12",
+      id: 1,
+      priority: true,
+      projectId: 0,
+      setComplete: () => (this.complete = true),
+      title: "treterkjf",
+      type: "notes",
+    },
+    {
+      complete: false,
+      description: "retert skdufh sudfhudfhds hfds fhsdufh sud fudhfs d",
+      duedate: "2025-08-12",
+      id: 1,
+      priority: true,
+      projectId: 0,
+      setComplete: () => (this.complete = true),
+      title: "treterkjf",
+      type: "notes",
+    },
+  ];
   static projectId = 0;
 
   constructor(title) {
@@ -69,22 +92,11 @@ export class Project {
   removeItemFromList = (id) => {
     Project.itemList = Project.itemList.filter((item) => item.id !== id);
   };
+
+  getItemDetails = (id) => {
+    const item = Project.itemList.find((item) => {
+      return Number(id) === item.id;
+    });
+    return item;
+  };
 }
-
-// export class SubProject extends Project {
-//   constructor(title) {
-//     super(title);
-//     this.subItemList = [];
-//   }
-
-//   setItemToList(item) {
-//     if (this.isEmptyObject(item)) return;
-//     this.subItemList.push(item);
-//   }
-
-//   getItemsFromList = () => this.subItemList;
-
-//   removeItemFromList = (id) => {
-//     this.subItemList = this.subItemList.filter((item) => item.id !== id);
-//   };
-// }

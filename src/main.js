@@ -11,7 +11,7 @@ const projectForm = document.querySelector(".project-form");
 const addProjectBtn = document.getElementById("add-project");
 
 // PROJECTS LIST
-const defaultProject = new Project("default");
+const defaultProject = new Project("All items");
 const projectArray = [defaultProject];
 let selectedProject = defaultProject;
 
@@ -19,6 +19,7 @@ function createDeleteBtn(item) {
   // Delete button
   const deleteBtn = document.createElement("button");
   deleteBtn.className = "delete-button";
+  deleteBtn.innerHTML = "&times;";
 
   // Remove item from list and updates the DOM
   deleteBtn.addEventListener("click", () => {
@@ -33,31 +34,46 @@ function expandItem(e) {
   const listEl = e.target.closest(".list-item");
   if (!listEl || e.target.classList.contains("delete-btn")) return;
 
-  const itemId = listEl.dataset.itemId;
+  const detailsContainer = listEl.querySelector(".details-container");
+  const listElements = toDoList.querySelectorAll(".list-item");
+  const listElementsArray = Array.from(listElements);
 
-  if (!listEl.classList.contains("extended")) {
-    listEl.classList.add("extended");
+  if (detailsContainer.classList.contains("hidden")) {
+    listElementsArray.forEach((el) => {
+      const singleContainer = el.querySelector(".details-container");
+      singleContainer.classList.add("hidden");
+    });
+
+    detailsContainer.classList.remove("hidden");
+  } else {
+    detailsContainer.classList.add("hidden");
   }
 }
 
 function createListElement(item) {
   const listEl = document.createElement("li");
-  const para = document.createElement("p");
-  const span = document.createElement("span");
+  listEl.className = "list-item";
+  listEl.dataset.itemId = item.id;
+
   const deleteBtn = createDeleteBtn(item);
 
-  para.textContent = item.title;
-  span.textContent = item.duedate.split("-").slice(1).join(" ");
-  deleteBtn.textContent = "X";
+  const markup = `   
+                    <div class="list-el-heading">
+                      <p class="list-el-title">${item.title}</p>
+                      <span class="date">Duedate: ${item.duedate
+                        .split("-")
+                        .slice(1)
+                        .join(" ")}</span>
+                    </div>              
+                    <div class='details-container hidden'>
+                      <p class="description">${item.description || ""}</p>
+              
+                      <button class='priority-btn'>Set priority</button>
+                   </div>`;
 
-  listEl.className = "list-item";
-  para.className = "list-item--para";
-  span.className = "list-item--span";
-
-  listEl.dataset.itemId = item.id;
-  para.appendChild(span);
-  listEl.appendChild(para);
-  listEl.appendChild(deleteBtn);
+  listEl.innerHTML = markup;
+  const heading = listEl.querySelector(".list-el-heading");
+  heading.appendChild(deleteBtn);
 
   listEl.addEventListener("click", expandItem);
 
@@ -83,7 +99,7 @@ function createProjectListElement(project) {
 function updateToDoList() {
   let listItems = [];
   console.log(selectedProject.title);
-  if (selectedProject.title === "default") {
+  if (selectedProject.title === "All items") {
     listItems = selectedProject.getAllItems();
   } else {
     // Takes item from selected project's list
@@ -157,4 +173,9 @@ projectForm.addEventListener("submit", (e) => {
 
 addProjectBtn.addEventListener("click", () => {
   projectForm.classList.toggle("hidden");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateProjectsList();
+  updateToDoList();
 });

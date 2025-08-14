@@ -8,11 +8,8 @@
   <body>
     <main id="main">
       <div class="sidebar">
-        <ul class="sidebar__list">
-          <li>project1</li>
-          <li>project3</li>
-          <li>project2</li>
-        </ul>
+        <ul class="sidebar__list"></ul>
+        <button id="add-project">Add new project</button>
       </div>
 
       <div class="main-content">
@@ -37,7 +34,7 @@
               placeholder="Description..."
             />
 
-            <label for="duedate">Due date:</label>
+            <label for="duedate">Select due date:</label>
             <input
               type="date"
               name="duedate"
@@ -45,22 +42,22 @@
               class="duedate-input"
             />
 
-            <label for="priority">Priority:</label>
-            <input
-              type="checkbox"
-              name="priority"
-              id="priority"
-              class="priority-input"
-            />
+            <div class="check-priority">
+              <label for="priority">Set priority:</label>
+              <input
+                type="checkbox"
+                name="priority"
+                id="priority"
+                class="priority-input"
+              />
+            </div>
+            <button type="submit">Submit</button>
           </div>
-
-          <button type="submit">Submit</button>
         </form>
         <div class="list-container">
           <ul class="list"></ul>
         </div>
 
-        <button id="add-project">Add new project</button>
         <form class="project-form hidden">
           <label for="title">Project title:</label>
           <input
