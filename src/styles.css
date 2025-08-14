@@ -133,6 +133,10 @@ input {
   color: #a3e2d8;
 }
 
+.priority-header::before {
+  content: "🔥 ";
+}
+
 .details-container {
   margin-top: 0.5rem;
   padding: 0.5rem;

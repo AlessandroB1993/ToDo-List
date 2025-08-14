@@ -46,7 +46,9 @@ function expandItem(e) {
 
     detailsContainer.classList.remove("hidden");
   } else {
-    detailsContainer.classList.add("hidden");
+    if (!e.target.classList.contains("priority-btn")) {
+      detailsContainer.classList.add("hidden");
+    }
   }
 }
 
@@ -59,23 +61,30 @@ function createListElement(item) {
 
   const markup = `   
                     <div class="list-el-heading">
-                      <p class="list-el-title">${item.title}</p>
-                      <span class="date">Duedate: ${item.duedate
-                        .split("-")
-                        .slice(1)
-                        .join(" ")}</span>
+                      <p class="list-el-title ${
+                        item.priority ? "priority-header" : ""
+                      }">${item.title}</p>
+                      <span class="date">Duedate: ${item.duedate}</span>
                     </div>              
                     <div class='details-container hidden'>
                       <p class="description">${item.description || ""}</p>
               
-                      <button class='priority-btn'>Set priority</button>
+                      <button class='priority-btn'>${
+                        item.priority ? "Remove" : "Set"
+                      } priority</button>
                    </div>`;
 
   listEl.innerHTML = markup;
   const heading = listEl.querySelector(".list-el-heading");
-  heading.appendChild(deleteBtn);
+  const priorityBtn = listEl.querySelector(".priority-btn");
 
+  priorityBtn.addEventListener("click", () => {
+    item.changePriority();
+    updateToDoList();
+  });
   listEl.addEventListener("click", expandItem);
+
+  heading.appendChild(deleteBtn);
 
   return listEl;
 }
@@ -98,21 +107,27 @@ function createProjectListElement(project) {
 
 function updateToDoList() {
   let listItems = [];
+
   console.log(selectedProject.title);
+  // Takes all item or from selected project's list
   if (selectedProject.title === "All items") {
     listItems = selectedProject.getAllItems();
   } else {
-    // Takes item from selected project's list
     listItems = selectedProject.getSingleListItems();
   }
+
+  // Put items with priority === true first
+  const withPriority = listItems.filter((i) => i.priority === true);
+  const withNoPriority = listItems.filter((i) => i.priority === false);
+  const orderedItems = withPriority.concat(withNoPriority);
+
   console.log(listItems);
   // Clean list
   toDoList.innerHTML = "";
 
-  // For each item, generates a <li> tag with text and deltete btn
-  listItems?.forEach((item) => {
+  // For each item, generates a <li> card with delete button, then adds it to list
+  orderedItems?.forEach((item) => {
     const listEl = createListElement(item);
-    // Updates the DOM
     toDoList.insertAdjacentElement("beforeend", listEl);
   });
 }
@@ -135,23 +150,13 @@ inputForm.addEventListener("submit", (e) => {
   console.log(data);
   // const formattedDate = data.duedate.split("-").slice(1).join(" ");
   const isPriority = data.priority === "on";
+  const dueDate = data.duedate ? data.duedate : "None";
 
-  const newItem = {
-    title: data.title,
-    description: data.description,
-    duedate: data.duedate,
-    priority: isPriority,
-    type: "notes",
-  };
+  const listItem = new Item(data);
+  selectedProject.projectId, console.log(selectedProject);
 
-  const listItem = new Item(newItem);
-
-  console.log(selectedProject);
   // Inserting item to a list
-  selectedProject.setItemToList({
-    ...listItem,
-    projectId: selectedProject.projectId,
-  });
+  selectedProject.setItemToList(listItem);
 
   // Updating the DOM
   updateToDoList();

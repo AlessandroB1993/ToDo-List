@@ -2,14 +2,14 @@ export class Item {
   static latestId = 1;
   complete = false;
 
-  constructor({ title, description = "", duedate, priority, type }) {
+  constructor({ title, description, duedate, priority }) {
     this.id = Item.incrementId() - 1;
     this.title = title;
-    this.description = description;
-    this.duedate = duedate;
-    this.priority = priority;
-    this.type = type;
-    this.checklist = [];
+    this.description = description || "No description";
+    this.duedate = duedate || "None";
+    this.priority = priority === "on";
+    // this.type = type;
+    // this.checklist = [];
   }
 
   static incrementId() {
@@ -18,7 +18,9 @@ export class Item {
     return this.latestId;
   }
 
-  changePriority = () => (this.priority = !this.priority);
+  changePriority() {
+    return (this.priority = !this.priority);
+  }
 
   setComplete = () => (this.complete = true);
 }
@@ -41,8 +43,8 @@ export class Project {
       description: "retert skdufh sudfhudfhds hfds fhsdufh sud fudhfs d",
       duedate: "2025-08-12",
       id: 1,
-      priority: true,
-      projectId: 0,
+      priority: false,
+      projectId: 20,
       setComplete: () => (this.complete = true),
       title: "treterkjf",
       type: "notes",
