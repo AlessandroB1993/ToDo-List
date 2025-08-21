@@ -6,14 +6,17 @@
     <title>To Do List</title>
   </head>
   <body>
-    <main id="main">
+    <main>
+      <!-- sidebar -->
       <div class="sidebar">
         <ul class="sidebar__list"></ul>
         <button id="add-project">Add new project</button>
       </div>
-
+      <!-- main content -->
       <div class="main-content">
+        <!-- TODO list form  -->
         <form id="input-form">
+          <h1>Add an item to your list</h1>
           <div class="input-container">
             <label for="title"></label>
             <input
@@ -54,20 +57,33 @@
             <button type="submit">Submit</button>
           </div>
         </form>
+
+        <!-- TODO list container  -->
         <div class="list-container">
           <ul class="list"></ul>
         </div>
 
-        <form class="project-form hidden">
-          <label for="title">Project title:</label>
-          <input
-            type="text"
-            name="title"
-            placeholder="Project title"
-            id="title"
-          />
-          <button type="submit">Create Project</button>
-        </form>
+        <!-- Modal popup -->
+        <div class="modal-container" id="modal-container">
+          <div class="modal">
+            <!-- Add project form -->
+            <h1>Create new project</h1>
+            <form class="project-form hidden">
+              <label for="title">Project title:</label>
+              <input
+                type="text"
+                name="title"
+                placeholder="Project title"
+                id="title"
+                required
+              />
+              <div>
+                <button type="submit">Create Project</button>
+                <button type="button" id="close">Close window</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </main>
   </body>

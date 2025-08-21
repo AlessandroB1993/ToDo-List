@@ -9,6 +9,9 @@ const toDoList = document.querySelector(".list");
 const inputForm = document.getElementById("input-form");
 const projectForm = document.querySelector(".project-form");
 const addProjectBtn = document.getElementById("add-project");
+const openBtn = document.getElementById("open");
+const modalContainer = document.getElementById("modal-container");
+const closeBtn = document.getElementById("close");
 
 // PROJECTS LIST
 const defaultProject = new Project("All items");
@@ -168,16 +171,29 @@ projectForm.addEventListener("submit", (e) => {
   const formdata = new FormData(projectForm);
   const data = Object.fromEntries(formdata.entries());
 
+  if (!data.title.trim()) return;
+
   const newSubProject = new Project(data.title);
   projectArray.push(newSubProject);
 
   updateProjectsList();
 
+  modalContainer.classList.remove("show");
   projectForm.reset();
 });
 
 addProjectBtn.addEventListener("click", () => {
-  projectForm.classList.toggle("hidden");
+  modalContainer.classList.add("show");
+});
+
+closeBtn.addEventListener("click", () => {
+  modalContainer.classList.remove("show");
+  projectForm.reset();
+});
+
+modalContainer.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("modal-container")) return;
+  modalContainer.classList.remove("show");
 });
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -20,34 +20,44 @@ ul {
 body {
   height: 100vh;
   width: 100vw;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: sans-serif;
+  color: #203138;
 }
 
 main {
   display: flex;
-  flex-direction: row;
+}
+
+p {
+  line-height: 1.5;
+  margin-bottom: 16px;
 }
 
 button {
-  padding: 0.25em;
+  padding: 10px 18px;
   background-color: #203138;
   color: #a3e2d8;
   font-size: 1.25rem;
   border: none;
   border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 #add-project {
-  margin-top: 50px;
+  display: block;
+  margin: 50px auto 0;
+  font-size: 0.85rem;
 }
 
 .sidebar {
   background-color: #6aa7a3;
-  height: 100vw;
-  width: 200px;
+  height: auto;
+  width: 230px;
   padding: 16px 24px;
-  color: #203138;
   font-size: 1.25rem;
+  box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 .sidebar__list {
@@ -62,6 +72,13 @@ button {
   width: 100%;
 }
 
+#input-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
 .list-container {
   width: 100%;
 }
@@ -74,12 +91,7 @@ input {
   padding: 0.25rem 0.5rem;
   background-color: #caf5ee;
   border-radius: 4px;
-}
-
-#title {
-  font-size: 1.25rem;
-  color: #444444;
-  font-weight: 600;
+  margin-bottom: 12px;
 }
 
 .input-container {
@@ -88,27 +100,27 @@ input {
   background-color: #6aa7a3;
   color: #203138;
   width: 28rem;
-  border: 1px solid #203138;
   padding: 0.5rem;
   border-radius: 6px;
   gap: 0.25rem;
   margin: 0 auto 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .check-priority {
   display: flex;
   width: 40%;
-  margin: 1rem auto;
+  margin: 0 auto 1rem;
   font-size: 1.15rem;
   justify-content: space-around;
 }
 
-#priority {
-  width: 1.5rem;
+.check-priority input {
+  margin-bottom: 0;
 }
 
-.hidden {
-  display: none;
+#priority {
+  width: 1.5rem;
 }
 
 .list-item {
@@ -118,6 +130,7 @@ input {
   border-radius: 6px;
   position: relative;
   margin: 0.5rem auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .list-el-heading {
@@ -170,4 +183,65 @@ input {
   top: 5px;
   padding: 0;
   color: #203138;
+}
+
+/* MODAL CONTAINER AND MODAL */
+.modal-container {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.modal-container.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background-color: #a3e2d8;
+  color: #203138;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  padding: 30px 50px;
+  width: 600px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal p {
+  opacity: 0.7;
+  margin: 16px 0;
+  font-size: 0.85rem;
+}
+
+.project-form {
+  font-size: 1.25rem;
+}
+
+.project-form div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.project-form input {
+  margin: 0 0 1.5rem 0.5rem;
+  font-size: 1.25rem;
+}
+
+#close {
+  background-color: #8a2f18;
+  color: #ddd6d4;
 }
