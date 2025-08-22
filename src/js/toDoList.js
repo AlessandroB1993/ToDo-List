@@ -1,6 +1,5 @@
-import { selectedProject } from "./projectsState";
-
-const toDoList = document.querySelector(".list");
+import { toDoList } from "./domSelecting";
+import { state } from "./projectsState";
 
 function expandItem(e) {
   const listEl = e.target.closest(".list-item");
@@ -31,11 +30,9 @@ function createListElement(item) {
 
   const deleteBtn = createDeleteBtn(item);
 
-  const markup = `   
-                    <div class="list-el-heading">
-                      <p class="list-el-title ${
-                        item.priority ? "priority-header" : ""
-                      }">${item.title}</p>
+  const markup = `<div class="list-el-heading"><p class="list-el-title ${
+    item.priority ? "priority-header" : ""
+  }">${item.title}</p>
                       <span class="date">Duedate: ${item.duedate}</span>
                     </div>              
                     <div class='details-container hidden'>
@@ -69,7 +66,7 @@ function createDeleteBtn(item) {
 
   // Remove item from list and updates the DOM
   deleteBtn.addEventListener("click", () => {
-    selectedProject.removeItemFromList(item.id);
+    state.selectedProject.removeItemFromList(item.id);
     updateToDoList();
   });
 
@@ -79,12 +76,12 @@ function createDeleteBtn(item) {
 function updateToDoList() {
   let listItems = [];
 
-  console.log(selectedProject.title);
+  console.log(state.selectedProject.title);
   // Takes all item or from selected project's list
-  if (selectedProject.title === "All items") {
-    listItems = selectedProject.getAllItems();
+  if (state.selectedProject.title === "All items") {
+    listItems = state.selectedProject.getAllItems();
   } else {
-    listItems = selectedProject.getSingleListItems();
+    listItems = state.selectedProject.getSingleListItems();
   }
 
   // Put items with priority === true first

@@ -1,8 +1,13 @@
 import { updateToDoList } from "./toDoList";
-import { selectedProject } from "./projectsState";
+import { state } from "./projectsState";
 import { Item, Project } from "./logic";
-
-const inputForm = document.getElementById("input-form");
+import { updateProjectsList } from "./projectList";
+import {
+  inputForm,
+  modalContainer,
+  projectForm,
+  selectProject,
+} from "./domSelecting";
 
 // LIST ITEM FORM SUBMITTING
 const handleItemSubmit = (e) => {
@@ -16,33 +21,43 @@ const handleItemSubmit = (e) => {
   const dueDate = data.duedate ? data.duedate : "None";
 
   const listItem = new Item(data);
-  console.log(listItem);
-
-  // Select the project corresponding to the selected project id
+  console.log(data);
 
   // Inserting item to a list
-  selectedProject.setItemToList(listItem);
+  state.selectedProject.setItemToList(listItem);
 
   // Updating the DOM
   updateToDoList();
 };
 
-const handleProjectSubmit = (projectArray, e) => {
+const handleProjectSubmit = (e) => {
   e.preventDefault();
 
   const formdata = new FormData(projectForm);
   const data = Object.fromEntries(formdata.entries());
 
-  if (!data.title.trim()) return;
+  if (!data) return;
 
   const newSubProject = new Project(data.title);
-  projectArray.push(newSubProject);
+  state.projectArray.push(newSubProject);
 
   updateProjectsList();
-  // updateProjectOptions();
+  updateProjectOptions();
 
   modalContainer.classList.remove("show");
   projectForm.reset();
 };
 
-export { handleItemSubmit, handleProjectSubmit };
+function updateProjectOptions() {
+  selectProject.innerHTML = "";
+
+  state.projectArray.forEach((project) => {
+    const option = document.createElement("option");
+    option.innerText = project.title;
+    option.value = project.projectId;
+
+    selectProject.insertAdjacentElement("beforeend", option);
+  });
+}
+
+export { handleItemSubmit, handleProjectSubmit, updateProjectOptions };

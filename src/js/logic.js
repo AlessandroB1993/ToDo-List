@@ -2,12 +2,13 @@ export class Item {
   static latestId = 1;
   complete = false;
 
-  constructor({ title, description, duedate, priority }) {
+  constructor({ title, description, duedate, priority, projectId }) {
     this.id = Item.incrementId() - 1;
     this.title = title;
     this.description = description || "No description";
     this.duedate = duedate || "None";
     this.priority = priority === "on";
+    this.projectId = Number(projectId);
     // this.type = type;
     // this.checklist = [];
   }

@@ -1,3 +1,5 @@
+const modalContainer = document.getElementById("modal-container");
+
 const closeModal = () => {
   modalContainer.classList.remove("show");
   projectForm.reset();
@@ -8,4 +10,8 @@ const closeModalOverlay = (e) => {
   modalContainer.classList.remove("show");
 };
 
-export { closeModal, closeModalOverlay };
+const openModal = () => {
+  modalContainer.classList.add("show");
+};
+
+export { closeModal, closeModalOverlay, openModal };
