@@ -4,7 +4,7 @@ const { plugins, output } = require("./webpack.prod");
 
 module.exports = {
   entry: {
-    app: "./src/main.js",
+    app: "./src/js/main.js",
   },
   plugins: [
     new HtmlWepackPlugin({
