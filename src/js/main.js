@@ -16,7 +16,7 @@ import {
   completedItemsContainer,
 } from "./domSelecting";
 import "../styles.css";
-import { completedItemsHandler } from "./completedItems";
+import { showCompletedItemsModal } from "./completedItems";
 
 // FORM SUBMITTING
 inputForm.addEventListener("submit", handleItemSubmit);
@@ -27,8 +27,9 @@ projectForm.addEventListener("submit", handleProjectSubmit);
 addProjectBtn.addEventListener("click", openModal);
 
 projectModalContainer.addEventListener("click", closeModalOverlay);
+completedItemsContainer.addEventListener("click", closeModalOverlay);
 
-completedBtn.addEventListener("click", completedItemsHandler);
+completedBtn.addEventListener("click", showCompletedItemsModal);
 
 // CLOSE BUTTONS
 closeModalBtn.forEach((btn) => {

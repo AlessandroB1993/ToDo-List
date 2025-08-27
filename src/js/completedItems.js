@@ -1,8 +1,9 @@
 import { completedItemsContainer } from "./domSelecting";
 import { state } from "./projectsState";
 
-export function completedItemsHandler() {
+export function showCompletedItemsModal() {
   completedItemsContainer.classList.add("show");
+  completedItemsContainer.classList.remove("hidden");
   showCompletedItems();
 }
 

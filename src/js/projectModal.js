@@ -7,10 +7,11 @@ function closeModal(el) {
 
 const closeModalOverlay = (e) => {
   if (!e.target.classList.contains("modal-container")) return;
-  projectModalContainer.classList.remove("show");
+  e.target.classList.remove("show");
 };
 
 const openModal = () => {
+  projectModalContainer.classList.remove("hidden");
   projectModalContainer.classList.add("show");
 };
 
