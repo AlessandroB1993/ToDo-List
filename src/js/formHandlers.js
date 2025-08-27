@@ -4,7 +4,7 @@ import { Item, Project } from "./logic";
 import { updateProjectsList } from "./projectList";
 import {
   inputForm,
-  modalContainer,
+  projectModalContainer,
   projectForm,
   selectProject,
 } from "./domSelecting";
@@ -44,7 +44,7 @@ const handleProjectSubmit = (e) => {
   updateProjectsList();
   updateProjectOptions();
 
-  modalContainer.classList.remove("show");
+  projectModalContainer.classList.remove("show");
   projectForm.reset();
 };
 

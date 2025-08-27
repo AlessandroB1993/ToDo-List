@@ -10,22 +10,36 @@ import {
   inputForm,
   projectForm,
   addProjectBtn,
-  closeBtn,
-  modalContainer,
+  projectModalContainer,
+  completedBtn,
+  closeModalBtn,
+  completedItemsContainer,
 } from "./domSelecting";
 import "../styles.css";
+import { completedItemsHandler } from "./completedItems";
 
 // FORM SUBMITTING
 inputForm.addEventListener("submit", handleItemSubmit);
 
 projectForm.addEventListener("submit", handleProjectSubmit);
 
-// MODAL
+// MODALS
 addProjectBtn.addEventListener("click", openModal);
 
-closeBtn.addEventListener("click", closeModal);
+projectModalContainer.addEventListener("click", closeModalOverlay);
 
-modalContainer.addEventListener("click", closeModalOverlay);
+completedBtn.addEventListener("click", completedItemsHandler);
+
+// CLOSE BUTTONS
+closeModalBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (btn.dataset.modal === "project") {
+      closeModal(projectModalContainer);
+    } else {
+      closeModal(completedItemsContainer);
+    }
+  });
+});
 
 // FIRST LOADING
 document.addEventListener("DOMContentLoaded", () => {

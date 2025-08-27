@@ -41,16 +41,25 @@ function createListElement(item) {
                       <button class='priority-btn'>${
                         item.priority ? "Remove" : "Set"
                       } priority</button>
+                      <button class='complete-btn'>Set as completed</button>
                    </div>`;
 
   listEl.innerHTML = markup;
   const heading = listEl.querySelector(".list-el-heading");
   const priorityBtn = listEl.querySelector(".priority-btn");
+  const completeBtn = listEl.querySelector(".complete-btn");
 
   priorityBtn.addEventListener("click", () => {
     item.changePriority();
     updateToDoList();
   });
+
+  completeBtn.addEventListener("click", () => {
+    item.setComplete();
+    state.selectedProject.addToCompletedList(item);
+    updateToDoList();
+  });
+
   listEl.addEventListener("click", expandItem);
 
   heading.appendChild(deleteBtn);

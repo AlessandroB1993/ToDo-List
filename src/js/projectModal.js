@@ -1,17 +1,17 @@
-const modalContainer = document.getElementById("modal-container");
+import { projectForm, projectModalContainer } from "./domSelecting";
 
-const closeModal = () => {
-  modalContainer.classList.remove("show");
+function closeModal(el) {
+  el.classList.remove("show");
   projectForm.reset();
-};
+}
 
 const closeModalOverlay = (e) => {
   if (!e.target.classList.contains("modal-container")) return;
-  modalContainer.classList.remove("show");
+  projectModalContainer.classList.remove("show");
 };
 
 const openModal = () => {
-  modalContainer.classList.add("show");
+  projectModalContainer.classList.add("show");
 };
 
 export { closeModal, closeModalOverlay, openModal };

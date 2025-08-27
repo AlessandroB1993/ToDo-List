@@ -14,6 +14,9 @@
       </div>
       <!-- main content -->
       <div class="main-content">
+        <!-- COMPLETED item button-->
+        <button class="completed-items-btn">✔</button>
+
         <!-- TODO list form  -->
         <form id="input-form">
           <h1>Add an item to your list</h1>
@@ -73,8 +76,8 @@
           <ul class="list"></ul>
         </div>
 
-        <!-- Modal popup -->
-        <div class="modal-container" id="modal-container">
+        <!-- Project Form Modal popup -->
+        <div class="modal-container" id="project-modal-container">
           <div class="modal">
             <!-- Add project form -->
             <h1>Create new project</h1>
@@ -89,9 +92,34 @@
               />
               <div>
                 <button type="submit">Create Project</button>
-                <button type="button" id="close">Close window</button>
+                <button
+                  type="button"
+                  data-modal="project"
+                  class="close-btn"
+                  id="close-project-form"
+                >
+                  Close window
+                </button>
               </div>
             </form>
+          </div>
+        </div>
+
+        <!-- Completed item popup window -->
+        <div class="modal-container" id="completed-items-container">
+          <div class="modal">
+            <div class="container">
+              <h1>Completed Items</h1>
+              <ul class="completed-list"></ul>
+            </div>
+            <button
+              type="button"
+              data-modal="completed"
+              class="close-btn"
+              id="close-completed-list"
+            >
+              Close window
+            </button>
           </div>
         </div>
       </div>

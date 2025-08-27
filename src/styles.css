@@ -7,6 +7,18 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+body {
+  min-height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+  color: #203138;
+}
+
 ul {
   list-style: none;
   width: 80%;
@@ -17,16 +29,19 @@ ul {
   row-gap: 14px;
 }
 
-body {
-  height: 100vh;
-  width: 100vw;
-  font-family: sans-serif;
-  color: #203138;
+.completed-list {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 16px 0;
+  max-height: 25rem;
+  overflow: auto;
 }
 
 main {
   display: flex;
-  height: 100%;
+  min-height: 100vh;
 }
 
 p {
@@ -71,6 +86,14 @@ button {
   padding: 32px;
   background-color: #a3e2d8;
   width: 100%;
+  height: 100%;
+}
+
+.completed-items-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border-radius: 12px;
 }
 
 #input-form {
@@ -156,21 +179,25 @@ input {
   padding: 0.5rem;
 }
 
+.details-container button {
+  display: block;
+  width: 80%;
+  margin: 0.5rem auto;
+}
+
+.complete-btn {
+  background-color: #268626;
+}
+
 .date {
   color: #6aa7a3;
 }
 
 .description {
   margin: 0 0 1rem 0;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #203138;
   min-height: 3rem;
-}
-
-.priority-btn {
-  display: block;
-  width: 80%;
-  margin: 0.5rem auto;
 }
 
 .delete-button {
@@ -242,7 +269,7 @@ input {
   font-size: 1.25rem;
 }
 
-#close {
+.close-btn {
   background-color: #8a2f18;
   color: #ddd6d4;
 }

@@ -23,7 +23,9 @@ export class Item {
     return (this.priority = !this.priority);
   }
 
-  setComplete = () => (this.complete = true);
+  setComplete() {
+    this.complete = true;
+  }
 }
 
 export class Project {
@@ -32,9 +34,9 @@ export class Project {
       complete: false,
       description: "retert skdufh sudfhudfhds hfds fhsdufh sud fudhfs d",
       duedate: "2025-08-12",
-      id: 1,
+      id: 10,
       priority: true,
-      projectId: 0,
+      projectId: 10,
       setComplete: () => (this.complete = true),
       title: "treterkjf",
       type: "notes",
@@ -43,7 +45,7 @@ export class Project {
       complete: false,
       description: "retert skdufh sudfhudfhds hfds fhsdufh sud fudhfs d",
       duedate: "2025-08-12",
-      id: 1,
+      id: 11,
       priority: false,
       projectId: 20,
       setComplete: () => (this.complete = true),
@@ -51,6 +53,7 @@ export class Project {
       type: "notes",
     },
   ];
+  static completedList = [];
   static projectId = 0;
 
   constructor(title) {
@@ -102,4 +105,14 @@ export class Project {
     });
     return item;
   };
+
+  addToCompletedList(item) {
+    Project.completedList.push(item);
+    this.removeItemFromList(item.id);
+    console.log(Project.completedList);
+  }
+
+  getCompletedItemsList() {
+    return Project.completedList;
+  }
 }
