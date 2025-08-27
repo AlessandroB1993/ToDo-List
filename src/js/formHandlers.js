@@ -8,6 +8,7 @@ import {
   projectForm,
   selectProject,
 } from "./domSelecting";
+import { formatDateForTask } from "./dateHandler";
 
 // LIST ITEM FORM SUBMITTING
 const handleItemSubmit = (e) => {
@@ -16,9 +17,9 @@ const handleItemSubmit = (e) => {
   const formData = new FormData(inputForm);
   const data = Object.fromEntries(formData.entries());
 
-  // const formattedDate = data.duedate.split("-").slice(1).join(" ");
-  const isPriority = data.priority === "on";
-  const dueDate = data.duedate ? data.duedate : "None";
+  if (data.duedate) {
+    data.duedate = formatDateForTask(data.duedate);
+  }
 
   const listItem = new Item(data);
   console.log(data);

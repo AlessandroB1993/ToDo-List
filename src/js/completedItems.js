@@ -7,9 +7,13 @@ export function completedItemsHandler() {
 }
 
 export function showCompletedItems() {
-  const list = completedItemsContainer.querySelector(".completed-list");
-  list.innerHTML = "";
+  const container = completedItemsContainer.querySelector(".container");
   const completedItems = state.selectedProject.getCompletedItemsList();
+  const p = container.querySelector("p");
+
+  if (container.contains(p)) {
+    container.removeChild(p);
+  }
 
   if (completedItems.length === 0) {
     const para = document.createElement("p");
@@ -17,7 +21,8 @@ export function showCompletedItems() {
     return container.insertAdjacentElement("beforeend", para);
   }
 
-  list.className = "completed-list";
+  const list = completedItemsContainer.querySelector(".completed-list");
+  list.innerHTML = "";
 
   completedItems.forEach((item) => {
     const listEl = document.createElement("li");
