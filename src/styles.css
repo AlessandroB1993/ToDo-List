@@ -14,14 +14,13 @@ html {
 
 body {
   min-height: 100%;
-  width: 100%;
   font-family: sans-serif;
   color: #203138;
 }
 
 ul {
   list-style: none;
-  width: 80%;
+  max-width: 80%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
@@ -77,7 +76,6 @@ button:hover {
   width: 230px;
   padding: 16px 24px;
   font-size: 1.25rem;
-  box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -88,17 +86,45 @@ button:hover {
 }
 
 .main-content {
-  padding: 32px;
+  padding: 24px;
   background-color: #a3e2d8;
   width: 100%;
   min-height: 100%;
+  overflow: auto;
 }
 
-.completed-items-btn {
+.btn-container {
   position: absolute;
   top: 15px;
   right: 15px;
+}
+
+.completed-items-btn {
+  position: relative;
   border-radius: 12px;
+}
+
+.btn-container .tooltip {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  background-color: #203138;
+  color: #a3e2d8;
+  margin-right: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transform: translateY(-50%) scale(0);
+  transform-origin: right center;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 300ms ease;
+  pointer-events: none;
+}
+
+.btn-container:hover .tooltip {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
 }
 
 #input-form {
@@ -109,7 +135,6 @@ button:hover {
 }
 
 .list-container {
-  width: 100%;
 }
 
 input,
@@ -133,6 +158,7 @@ select {
   justify-content: center;
   align-items: center;
   margin-bottom: 12px;
+  gap: 8px;
 }
 
 .input-container {
@@ -141,10 +167,10 @@ select {
   background-color: #6aa7a3;
   color: #203138;
   width: 28rem;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 6px;
   gap: 0.25rem;
-  margin: 0 auto 24px;
+  margin: 0 auto 34px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
