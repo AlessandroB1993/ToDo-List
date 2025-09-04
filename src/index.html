@@ -20,36 +20,47 @@
           <span class="tooltip">Show completed items</span>
         </div>
 
+        <div class="switch-form-container">
+          <button class="switch-btn item selected">Item</button>
+          <button class="switch-btn checklist">Checklist</button>
+        </div>
+
         <!-- TODO list form  -->
-        <form id="input-form">
-          <h1>Add an item to your list</h1>
+        <form id="todo-form">
+          <h1>Add an item</h1>
           <div class="input-container">
-            <label for="title"></label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              class="title-input"
-              placeholder="Insert your task"
-              required
-            />
+            <div>
+              <label for="title">*Title:</label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                class="title-input"
+                placeholder="Insert task title"
+                required
+              />
+            </div>
 
-            <label for="description"></label>
-            <input
-              type="text"
-              name="description"
-              id="description"
-              class="description-input"
-              placeholder="Description..."
-            />
+            <div>
+              <label for="description">Description</label>
+              <input
+                type="text"
+                name="description"
+                id="description"
+                class="description-input"
+                placeholder="Description..."
+              />
+            </div>
 
-            <label for="duedate">Select due date:</label>
-            <input
-              type="date"
-              name="duedate"
-              id="duedate"
-              class="duedate-input"
-            />
+            <div>
+              <label for="duedate">Select due date:</label>
+              <input
+                type="date"
+                name="duedate"
+                id="duedate"
+                class="duedate-input"
+              />
+            </div>
 
             <div class="check-priority">
               <label for="priority">Set priority:</label>
@@ -62,10 +73,10 @@
             </div>
 
             <div class="project">
-              <label for="projectId">Select project:</label>
+              <label for="projectId-1">Select project:</label>
               <select
                 name="projectId"
-                id="projectId"
+                id="projectId-1"
                 class="projectId-input"
               ></select>
             </div>
@@ -74,10 +85,113 @@
           </div>
         </form>
 
+        <!-- CHECKLIST form -->
+        <form id="checklist-form" class="hidden">
+          <h1>Add checklist</h1>
+          <div class="input-container" id="checklist-input-container">
+            <div>
+              <label for="title">Title:</label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                class="title-input"
+                placeholder="Insert task title"
+              />
+            </div>
+
+            <div>
+              <label for="description">Description:</label>
+              <input
+                type="text"
+                name="description"
+                id="description"
+                class="description-input"
+                placeholder="Description..."
+              />
+            </div>
+
+            <div>
+              <label for="duedate">Select due date:</label>
+              <input
+                type="date"
+                name="duedate"
+                id="duedate"
+                class="duedate-input"
+              />
+            </div>
+
+            <div class="project">
+              <label for="projectId-2">Select project:</label>
+              <select
+                name="projectId"
+                id="projectId-2"
+                class="projectId-input"
+              ></select>
+            </div>
+
+            <div class="check-priority">
+              <label for="priority">Set priority:</label>
+              <input
+                type="checkbox"
+                name="priority"
+                id="priority"
+                class="priority-input"
+              />
+            </div>
+
+            <div class="checklist-input-item">
+              <label for="checklist-el">Add task:</label>
+              <input
+                type="text"
+                name="task"
+                id="checklist-el"
+                placeholder="List element details.."
+                required
+              />
+            </div>
+
+            <template id="checklist-item">
+              <div class="checklist-input-item">
+                <label for="checklist-el">Add task:</label>
+                <input
+                  type="text"
+                  name="task"
+                  id="checklist-el"
+                  placeholder="List element details..."
+                />
+              </div>
+            </template>
+          </div>
+          <button class="add-checklist-item">+</button>
+          <button type="submit">Submit list</button>
+        </form>
+
         <!-- TODO list container  -->
         <div class="list-container">
           <ul class="list"></ul>
         </div>
+
+        <!-- CHECKLIST template -->
+        <template id="checklist-item-template">
+          <div class="list-el-heading">
+            <p class="list-el-title"></p>
+            <span class="date">Duedate: </span>
+          </div>
+          <div class="details-container hidden">
+            <p class="description"></p>
+            <ul class="task-list">
+              <li>
+                <input class="task-list-check" type="checkbox" />
+              </li>
+            </ul>
+
+            <button class="priority-btn">Set priority</button>
+            <button class="complete-btn disabled" disabled>
+              Set as completed
+            </button>
+          </div>
+        </template>
 
         <!-- Project Form Modal popup -->
         <div class="modal-container hidden" id="project-modal-container">

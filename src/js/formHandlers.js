@@ -6,7 +6,8 @@ import {
   inputForm,
   projectModalContainer,
   projectForm,
-  selectProject,
+  selectElements,
+  checklistForm,
 } from "./domSelecting";
 import { formatDateForTask } from "./dateHandler";
 
@@ -16,19 +17,20 @@ const handleItemSubmit = (e) => {
 
   const formData = new FormData(inputForm);
   const data = Object.fromEntries(formData.entries());
+  data.type = state.selectedType;
 
   if (data.duedate) {
     data.duedate = formatDateForTask(data.duedate);
   }
 
   const listItem = new Item(data);
-  console.log(data);
+  console.log(listItem);
 
   // Inserting item to a list
   state.selectedProject.setItemToList(listItem);
 
   // Updating the DOM
-  updateToDoList();
+  updateToDoList(state.selectedType);
 };
 
 const handleProjectSubmit = (e) => {
@@ -50,15 +52,41 @@ const handleProjectSubmit = (e) => {
 };
 
 function updateProjectOptions() {
-  selectProject.innerHTML = "";
+  selectElements.forEach((select) => {
+    select.innerHTML = "";
 
-  state.projectArray.forEach((project) => {
-    const option = document.createElement("option");
-    option.innerText = project.title;
-    option.value = project.projectId;
+    state.projectArray.forEach((project) => {
+      const option = document.createElement("option");
+      option.innerText = project.title;
+      option.value = project.projectId;
 
-    selectProject.insertAdjacentElement("beforeend", option);
+      select.insertAdjacentElement("beforeend", option);
+    });
   });
 }
 
-export { handleItemSubmit, handleProjectSubmit, updateProjectOptions };
+// CHECKLIST ITEM SUBMIT
+function handleChecklistSubmit(e) {
+  e.preventDefault();
+
+  const formdata = new FormData(checklistForm);
+  const data = Object.fromEntries(formdata.entries());
+  const tasks = formdata.getAll("task").filter((task) => task);
+  data.type = state.selectedType;
+
+  if (data.duedate) {
+    data.duedate = formatDateForTask(data.duedate);
+  }
+
+  const checklistItem = new Item({ ...data, tasks });
+  state.selectedProject.setItemToList(checklistItem);
+
+  updateToDoList(state.selectedType);
+}
+
+export {
+  handleItemSubmit,
+  handleProjectSubmit,
+  updateProjectOptions,
+  handleChecklistSubmit,
+};

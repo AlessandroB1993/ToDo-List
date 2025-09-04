@@ -2,15 +2,23 @@ export class Item {
   static latestId = 1;
   complete = false;
 
-  constructor({ title, description, duedate, priority, projectId }) {
+  constructor({
+    title,
+    description,
+    duedate,
+    priority,
+    projectId,
+    type,
+    tasks,
+  }) {
     this.id = Item.incrementId() - 1;
-    this.title = title;
+    this.title = title || "No title";
     this.description = description || "No description";
     this.duedate = duedate || "None";
     this.priority = priority === "on";
     this.projectId = Number(projectId);
-    // this.type = type;
-    // this.checklist = [];
+    this.type = type;
+    this.checklist = tasks || [];
   }
 
   static incrementId() {
@@ -39,7 +47,7 @@ export class Project {
       projectId: 10,
       setComplete: () => (this.complete = true),
       title: "treterkjf",
-      type: "notes",
+      type: "item",
     },
     {
       complete: false,
@@ -50,7 +58,7 @@ export class Project {
       projectId: 20,
       setComplete: () => (this.complete = true),
       title: "treterkjf",
-      type: "notes",
+      type: "item",
     },
   ];
   static completedList = [];

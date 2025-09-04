@@ -28,6 +28,22 @@ ul {
   row-gap: 14px;
 }
 
+.task-list {
+  display: block;
+  max-width: 90%;
+}
+
+.task-list li {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.task-list li span {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .completed-list {
   font-size: 1.5rem;
   display: flex;
@@ -70,11 +86,18 @@ button:hover {
   font-size: 0.85rem;
 }
 
+#checklist-form button {
+  width: 90%;
+}
+
+.task-list-check {
+  width: auto;
+}
+
 .sidebar {
   background-color: #6aa7a3;
   height: auto;
   width: 230px;
-  padding: 16px 24px;
   font-size: 1.25rem;
   z-index: 1;
 }
@@ -82,7 +105,19 @@ button:hover {
 .sidebar__list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  row-gap: 0;
+  max-width: 100%;
+}
+.sidebar__list li {
+  width: 100%;
+  padding: 0.75rem 0.5rem 0.5rem 1.5rem;
+  text-transform: capitalize;
+}
+
+.sidebar__list li:hover {
+  transition: all 300ms;
+  cursor: pointer;
+  background-color: #578891;
 }
 
 .main-content {
@@ -91,6 +126,54 @@ button:hover {
   width: 100%;
   min-height: 100%;
   overflow: auto;
+}
+
+.switch-form-container {
+  width: fit-content;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.switch-btn {
+  font-size: 1rem;
+  background-color: #ced6d5;
+  color: #727272;
+  height: 2.25rem;
+}
+
+.switch-btn:hover {
+  background-color: #ced6d5;
+  color: #727272;
+}
+
+.switch-btn.item {
+  border-radius: 6px 0 0 6px;
+}
+.switch-btn.checklist {
+  border-radius: 0 6px 6px 0;
+}
+
+.item.selected,
+.checklist.selected {
+  background-color: #152329;
+  color: #a3e2d8;
+  font-weight: 600;
+}
+
+.checklist-input-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.add-checklist-item {
+  max-width: fit-content;
+  height: fit-content;
+  line-height: 0.6;
+  border-radius: 50%;
+  font-size: 2rem;
+  padding: 0.5rem;
 }
 
 .btn-container {
@@ -127,14 +210,18 @@ button:hover {
   transform: translateY(-50%) scale(1);
 }
 
-#input-form {
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-}
-
-.list-container {
+  background-color: #6aa7a3;
+  color: #203138;
+  width: 28rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  gap: 0.75rem;
+  margin: 0 auto 34px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 input,
@@ -146,11 +233,12 @@ select {
   padding: 0.25rem 0.5rem;
   background-color: #caf5ee;
   border-radius: 4px;
-  margin-bottom: 12px;
+  width: 100%;
 }
 
 select {
   margin: 0;
+  width: 50%;
 }
 
 .project {
@@ -164,14 +252,14 @@ select {
 .input-container {
   display: flex;
   flex-direction: column;
-  background-color: #6aa7a3;
-  color: #203138;
-  width: 28rem;
-  padding: 0.75rem;
+  width: 100%;
+  padding: 0 0.75rem;
   border-radius: 6px;
-  gap: 0.25rem;
-  margin: 0 auto 34px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  gap: 0.75rem;
+}
+
+.checklist-input-item input {
+  width: 80%;
 }
 
 .check-priority {
@@ -306,12 +394,15 @@ select {
 
 .project-form {
   font-size: 1.25rem;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .project-form div {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
 }
 
 .project-form input {
@@ -327,4 +418,14 @@ select {
 
 .hidden {
   display: none;
+}
+
+.disabled {
+  background-color: #487548;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.disabled:hover {
+  background-color: #487548;
 }

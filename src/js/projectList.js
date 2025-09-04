@@ -1,4 +1,4 @@
-import { projectsList } from "./domSelecting";
+import { projectsList, selectElements } from "./domSelecting";
 import { state } from "./projectsState";
 import { updateToDoList } from "./toDoList";
 
@@ -9,6 +9,8 @@ function updateProjectsList() {
     const projElement = createProjectListElement(project);
     projectsList.insertAdjacentElement("beforeend", projElement);
   });
+
+  projectsList.addEventListener("click", projectListHandler);
 }
 
 function createProjectListElement(project) {
@@ -16,15 +18,21 @@ function createProjectListElement(project) {
   projEl.innerText = project.title;
   projEl.dataset.projectId = project.projectId;
 
-  projEl.addEventListener("click", (e) => {
-    state.selectedProject = state.projectArray.find(
-      (project) =>
-        project.projectId === Number(e.currentTarget.dataset.projectId)
-    );
-    updateToDoList();
-  });
-
   return projEl;
+}
+
+function projectListHandler(e) {
+  const projectId = Number(e.target.dataset.projectId);
+
+  state.selectedProject = state.projectArray.find(
+    (project) => project.projectId === projectId
+  );
+
+  // Select elements are updated to display the selected project automatically
+  selectElements.forEach((select) => (select.value = projectId));
+
+  // Displays only based on what type is selected on the homepage
+  updateToDoList(state.selectedType);
 }
 
 export { updateProjectsList, createProjectListElement };
