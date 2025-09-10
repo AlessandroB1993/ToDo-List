@@ -48,7 +48,7 @@
                 name="description"
                 id="description"
                 class="description-input"
-                placeholder="Description..."
+                placeholder="You may add description....."
               />
             </div>
 
@@ -73,7 +73,7 @@
             </div>
 
             <div class="project">
-              <label for="projectId-1">Select project:</label>
+              <label for="projectId-1">Add item to:</label>
               <select
                 name="projectId"
                 id="projectId-1"
@@ -96,7 +96,7 @@
                 name="title"
                 id="title"
                 class="title-input"
-                placeholder="Insert task title"
+                placeholder="You may insert task title"
               />
             </div>
 
@@ -107,7 +107,7 @@
                 name="description"
                 id="description"
                 class="description-input"
-                placeholder="Description..."
+                placeholder="You may add description..."
               />
             </div>
 
@@ -122,7 +122,7 @@
             </div>
 
             <div class="project">
-              <label for="projectId-2">Select project:</label>
+              <label for="projectId-2">Add checklist to:</label>
               <select
                 name="projectId"
                 id="projectId-2"
@@ -141,16 +141,17 @@
             </div>
 
             <div class="checklist-input-item">
-              <label for="checklist-el">Add task:</label>
+              <label for="checklist-el">*Add task:</label>
               <input
                 type="text"
                 name="task"
                 id="checklist-el"
-                placeholder="List element details.."
+                placeholder="Add one task at least.."
                 required
               />
             </div>
 
+            <!-- template -->
             <template id="checklist-item">
               <div class="checklist-input-item">
                 <label for="checklist-el">Add task:</label>
@@ -158,7 +159,7 @@
                   type="text"
                   name="task"
                   id="checklist-el"
-                  placeholder="List element details..."
+                  placeholder="Other task..."
                 />
               </div>
             </template>
@@ -222,7 +223,7 @@
           </div>
         </div>
 
-        <!-- Completed item popup window -->
+        <!-- Completed item modal -->
         <div class="modal-container hidden" id="completed-items-container">
           <div class="modal">
             <div class="container">
