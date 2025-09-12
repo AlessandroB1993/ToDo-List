@@ -1,49 +1,66 @@
 import { Project } from "./projectModel";
 import { Item } from "./itemModel";
 
-function saveState(state) {
-  const serializable = {
+export interface StateParams {
+  projectArray: Project[];
+  selectedProject: Project;
+  selectedType: string;
+}
+
+interface SerializableState {
+  projects: ReturnType<Project["toJSON"]>[];
+  items: ReturnType<Item["toJSON"]>[];
+  completed: ReturnType<Item["toJSON"]>[];
+  selectedProjectId: number | null;
+  selectedType: string;
+  projectId: number;
+  latestId: number;
+}
+
+function saveState(state: StateParams): void {
+  const serializable: SerializableState = {
     projects: state.projectArray.map((p) => p.toJSON()) ?? [],
     items: Project.itemList.map((i) => i.toJSON()),
     completed: Project.completedList.map((i) => i.toJSON()),
     selectedProjectId: state.selectedProject?.projectId ?? null,
     selectedType: state.selectedType,
     projectId: Project.projectId,
+    latestId: Item.latestId,
   };
   localStorage.setItem("state", JSON.stringify(serializable));
 }
 
-function loadState() {
+function loadState(): StateParams | null {
   const cachedState = localStorage.getItem("state");
   if (!cachedState) return null;
 
-  const parsed = JSON.parse(cachedState);
+  const parsed: SerializableState = JSON.parse(cachedState);
 
-  // reset liste statiche
+  // reset static lists
   Project.itemList = [];
   Project.completedList = [];
 
-  // ricrea gli item
-  const itemsById = {};
+  // re-create items
   parsed.items?.forEach((obj) => {
     const item = new Item(obj);
-    itemsById[item.id] = item;
     Project.itemList.push(item);
   });
 
   parsed.completed?.forEach((obj) => {
     const item = new Item(obj);
-    itemsById[item.id] = item;
     Project.completedList.push(item);
   });
 
-  // ricrea i progetti
+  // re-create projects
   const projects = parsed.projects?.map(
     (p) => new Project(p.title, p.projectId)
   );
-  Project.projectId = parsed.projectId;
 
-  // seleziona progetto
+  // restore IDs count
+  Project.projectId = parsed.projectId;
+  Item.latestId = parsed.latestId;
+
+  //  select 'All items' as selected project
   const selectedProject = projects[0] || null;
 
   return {
@@ -53,9 +70,9 @@ function loadState() {
   };
 }
 
-let state = null;
+let state: StateParams | null = null;
 
-function initState() {
+function initState(): StateParams {
   const restored = loadState();
   if (restored) return restored;
 
@@ -68,7 +85,7 @@ function initState() {
   };
 }
 
-function getState() {
+function getState(): StateParams {
   if (!state) {
     state = initState();
   }

@@ -6,7 +6,7 @@ import {
   parseISO,
 } from "date-fns";
 
-export function formatDateForTask(date) {
+export function formatDateForTask(date: string): string {
   const parsedDate = parseISO(date);
   const daysLeft = differenceInDays(parsedDate, new Date());
   const formattedDate = format(parsedDate, "dd/MM/yyyy");
@@ -14,7 +14,11 @@ export function formatDateForTask(date) {
   return countDays(parsedDate, daysLeft, formattedDate);
 }
 
-function countDays(date, daysLeft, formattedDate) {
+function countDays(
+  date: Date,
+  daysLeft: number,
+  formattedDate: string
+): string {
   let duedate;
 
   if (isToday(date)) {

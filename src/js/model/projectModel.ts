@@ -1,9 +1,14 @@
-export class Project {
-  static itemList = [];
-  static completedList = [];
-  static projectId = 0;
+import { Item } from "./itemModel";
 
-  constructor(title, projectId = null) {
+export class Project {
+  static itemList: Item[] = [];
+  static completedList: Item[] = [];
+  static projectId: number = 0;
+
+  title: string;
+  projectId: number;
+
+  constructor(title: string, projectId: number | null = null) {
     this.title = title;
     this.projectId = projectId ?? Project.projectId++;
   }
@@ -21,7 +26,7 @@ export class Project {
     };
   }
 
-  #isEmpty(obj) {
+  #isEmpty(obj: Record<string, unknown>): boolean {
     for (const prop in obj) {
       if (Object.hasOwn(obj, prop)) {
         return false;
@@ -30,7 +35,7 @@ export class Project {
     return true;
   }
 
-  isEmptyObject(value) {
+  isEmptyObject(value: unknown): boolean {
     if (value == null) {
       // null and undefined are not objects, we need to check for actual objects
       return false;
@@ -40,43 +45,50 @@ export class Project {
       return false;
     }
 
-    return this.#isEmpty(value);
+    return this.#isEmpty(value as Record<string, boolean>);
   }
 
-  getAllItems = () => Project.itemList;
+  // get all items in the list
+  getAllItems = (): Item[] => Project.itemList;
 
-  getSingleListItems() {
+  // return items from current selectedProject
+  getSingleListItems(): Item[] {
     return Project.itemList.filter((item) => item.projectId === this.projectId);
   }
 
-  setItemToList(item) {
+  setItemToList(item: Item): void {
     if (this.isEmptyObject(item)) return;
-
     Project.itemList.push(item);
   }
 
-  removeItemFromList = (id) => {
+  removeItemFromList = (id: number): void => {
     Project.itemList = Project.itemList.filter((item) => item.id !== id);
   };
 
-  getItemDetails = (id) => {
+  removeProjectItems(projectId: number): void {
+    Project.itemList = Project.itemList.filter(
+      (i) => i.projectId !== projectId
+    );
+  }
+
+  getItemDetails = (id: number): Item | undefined => {
     const item = Project.itemList.find((item) => {
       return Number(id) === item.id;
     });
     return item;
   };
 
-  addToCompletedList(item) {
+  addToCompletedList(item: Item): void {
     Project.completedList.push(item);
     this.removeItemFromList(item.id);
     console.log(Project.completedList);
   }
 
-  getCompletedItemsList() {
+  getCompletedItemsList(): Item[] {
     return Project.completedList;
   }
 
-  findItemById(itemId) {
+  findItemById(itemId: number): Item | undefined {
     return Project.itemList.find((item) => item.id === itemId);
   }
 }

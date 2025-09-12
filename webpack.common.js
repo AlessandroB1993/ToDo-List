@@ -4,7 +4,7 @@ const { plugins, output } = require("./webpack.prod");
 
 module.exports = {
   entry: {
-    app: "./src/js/main.js",
+    app: "./src/js/main.ts",
   },
   plugins: [
     new HtmlWepackPlugin({
@@ -17,8 +17,16 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
